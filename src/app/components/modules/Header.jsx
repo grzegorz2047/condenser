@@ -7,6 +7,8 @@ import resolveRoute from 'app/ResolveRoute';
 import DropdownMenu from 'app/components/elements/DropdownMenu';
 import shouldComponentUpdate from 'app/utils/shouldComponentUpdate';
 import HorizontalMenu from 'app/components/elements/HorizontalMenu';
+import FilterPostsContainer from 'app/components/modules/FilterPostsContainer';
+
 import normalizeProfile from 'app/utils/NormalizeProfile';
 import tt from 'counterpart';
 import { APP_NAME } from 'app/client_config';
@@ -275,6 +277,8 @@ class Header extends React.Component {
                                         </span>
                                     </Link>
                                 </li>
+                                <FilterPostsContainer
+                                />
                                 {selected_sort_order && (
                                     <DropdownMenu
                                         className="Header__sort-order-menu menu-hide-for-large"

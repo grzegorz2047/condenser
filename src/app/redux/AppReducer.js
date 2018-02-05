@@ -11,6 +11,7 @@ export const SET_USER_PREFERENCES = 'app/SET_USER_PREFERENCES';
 export const TOGGLE_NIGHTMODE = 'app/TOGGLE_NIGHTMODE';
 export const TOGGLE_BLOGMODE = 'app/TOGGLE_BLOGMODE';
 export const RECEIVE_FEATURE_FLAGS = 'app/RECEIVE_FEATURE_FLAGS';
+export const POSTS_FILTER = 'app/POSTS_FILTER';
 
 export const defaultState = Map({
     loading: false,
@@ -38,6 +39,14 @@ export const defaultState = Map({
         currency: 'USD',
     }),
     featureFlags: Map({}),
+    postsFilter: 'trending',
+    sortOrders: List(
+    [
+        ['trending', tt('main_menu.trending')],
+        ['created', tt('g.new')],
+        ['hot', tt('main_menu.hot')],
+        ['promoted', tt('g.promoted')],
+    ]),
 });
 
 export default function reducer(state = defaultState, action = {}) {
@@ -96,6 +105,8 @@ export default function reducer(state = defaultState, action = {}) {
                 ? state.get('featureFlags').merge(action.flags)
                 : Map(action.flags);
             return state.set('featureFlags', newFlags);
+        case POSTS_FILTER:
+            return state.set('postsFilter', action.payload.filter)
         default:
             return state;
     }
@@ -147,7 +158,14 @@ export const receiveFeatureFlags = flags => ({
     flags,
 });
 
+export const setPostsFilter = payload => ({
+    type: POSTS_FILTER,
+    payload,
+});
+
 export const selectors = {
+    getPostsFilter: (state) =>
+        state.get('postsFilter'),
     getFeatureFlag: (state, flagName) =>
         state.getIn(['featureFlags', flagName], false),
 };

@@ -147,24 +147,6 @@ class PostsIndex extends React.Component {
         const fetching = (currentStatus && currentStatus.fetching) || loading;
         const { showSpam } = this.state;
 
-        const sort_orders = [
-            ['trending', tt('main_menu.trending')],
-            ['created', tt('g.new')],
-            ['hot', tt('main_menu.hot')],
-            ['promoted', tt('g.promoted')],
-        ];
-        if (username)
-            sort_orders.unshift(['home', tt('header_jsx.home')]);
-        const sort_order_menu = sort_orders
-            .filter(so => so[0] !== sort_order)
-            .map(so => ({
-                link: sortOrderToLink(so[0], topic, username),
-                value: so[1],
-            }));
-        const selected_sort_order = sort_orders.find(
-            so => so[0] === sort_order
-        );
-
         // If we're at one of the four sort order routes without a tag filter,
         // use the translated string for that sort order, f.ex "trending"
         //
@@ -214,15 +196,6 @@ class PostsIndex extends React.Component {
                         <div className="articles__header-col">
                             <h1 className="articles__h1">{page_title}</h1>
                         </div>
-                        <span>IAIN</span>
-                        {selected_sort_order && (
-                            <DropdownMenu
-                                className="Header__sort-order-menu menu-hide-for-large"
-                                items={sort_order_menu}
-                                selected={selected_sort_order[1]}
-                                el="li"
-                            />
-                        )}
                         <div className="articles__header-col articles__header-col--right">
                             <div className="articles__tag-selector">
                                 <Topics
